@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>It's Me</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+<link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Pangolin&display=swap" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'money/css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'money/css/style.css' %}" rel="stylesheet">
+
+  <script src="https://use.fontawesome.com/68655f19c8.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
+
+
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top  header-transparent ">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo mr-auto">
+        <h2 class="text-light"><a href="" style="font-family: 'Chelsea Market', cursive;">ASHISH SASMAL</a></h2>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav class="nav-menu d-none d-lg-block" >
+        <ul>
+          <li class="active"><a href="{% url 'home' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Home</a></li>
+          <li><a href="{% url 'addmoney' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Add Expense</a></li>
+          <li><a href="{% url 'moneydetail' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Details</a></li>
+          <li><a href="" style="font-family: 'Pangolin', cursive;font-size:17pt;">Analytics</a></li>
+          <li><a href="" style="font-family: 'Pangolin', cursive;font-size:17pt;">Diary</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header><!-- End Header -->
+
+{% if messages %}
+{% for message in messages %}
+<br><br>
+<div class="alert alert-{{message.tags}} mt-2">{{message}}</div>
+{% endfor %}
+
+{% endif %}
+
+{% block content %}{% endblock %}
+  <!-- Vendor JS Files -->
+  <script src="{% static 'money/js/jquery.min.js' %}"></script>
+  <script src="{% static 'money/js/bootstrap.bundle.min.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'money/js/main.js' %}"></script>
+
+</body>
+
+</html>

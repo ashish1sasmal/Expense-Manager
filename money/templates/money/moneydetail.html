@@ -1,0 +1,35 @@
+{% extends 'money/base.html' %}
+
+{% block content%}
+<br><br><br><hr>
+
+<div class="container">
+  <table class="table  table-bordered">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">To</th>
+        <th scope="col">Reason</th>
+        <th scope="col">Date</th>
+        <th scope="col">Returned?</th>
+        <th scope="col">Amount</th>
+
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for i in all %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{i.to}}</td>
+        <td>{{i.reason}}</td>
+        <td>{{i.date}}</td>
+        <td>{{i.returned}}</td>
+        <td>{{i.amount}}</td>
+      </tr>
+     {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}
