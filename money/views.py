@@ -16,7 +16,6 @@ from django.contrib.auth.models import User
 import datetime
 
 from django.conf import settings
-from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.http import HttpRequest

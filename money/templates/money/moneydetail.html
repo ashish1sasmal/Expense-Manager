@@ -42,7 +42,7 @@
           <td>{{i.to}}</td>
           <td>{{i.reason}}</td>
           <td>{{i.date}}</td>
-          <td>{{i.amount}}</td>
+          <td>&#8377; {{i.amount}}</td>
           {% if i.status == "OS" %}
            <td><button type="button" onclick="paid({{i.id}});" class="btn btn-sm btn-danger">{{i.get_status_display}}</button></td>
            {% elif i.status == "OA" %}

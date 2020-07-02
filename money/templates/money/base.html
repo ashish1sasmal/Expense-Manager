@@ -46,9 +46,17 @@
       <nav class="nav-menu d-none d-lg-block" >
         <ul>
           <li class="active"><a href="{% url 'home' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Home</a></li>
-          <li><a href="{% url 'addmoney' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Add Expense</a></li>
-          <li><a href="{% url 'moneydetail' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Details</a></li>
-          <li><a href="" style="font-family: 'Pangolin', cursive;font-size:17pt;">Analytics</a></li>
+          <li><a  class="dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-family: 'Pangolin', cursive;font-size:17pt;">Expense</a>
+
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'addmoney' %}" style="font-family: 'Pangolin', cursive;font-size:15pt;">Update Balance</a>
+              <a class="dropdown-item" href="{% url 'moneydetail' %}" style="font-family: 'Pangolin', cursive;font-size:15pt;">Account Details</a>
+            </div>
+          </li>
+
+           <li><a href="{% url 'calendar' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Events</a></li>
+
+
           <li><a href="" style="font-family: 'Pangolin', cursive;font-size:17pt;">Diary</a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'logout' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Logout</a></li>
