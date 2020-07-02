@@ -6,6 +6,14 @@ from datetime import datetime
 from django.db import transaction
 from django.contrib import messages
 import decimal
+from django.contrib.auth import authenticate
+from django.contrib.auth import login,logout
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return redirect('home')
 
 # Create your views here.
 def home(request):

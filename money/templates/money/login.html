@@ -52,7 +52,8 @@
 
                 <div class="col-md-4 login-form-2">
                     <h3><u>Login</u></h3>
-                    <form>
+                    <form method="POST">
+                      {% csrf_token %}
                         <div class="form-group">
                             <input type="password" class="form-control" name="password" placeholder="Your Password *" value="" />
                         </div>
