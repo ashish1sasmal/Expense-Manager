@@ -14,11 +14,16 @@
   <link rel="stylesheet" href="{% static 'events/css/demo.css' %}">
 </head>
 <body>
-<br><br><br>
+<br><br>
 
-<div id="container" class="calendar-container" data-tippy-content="content tip"></div>
 
-    <div id="event-cal-container" class="calendar-container"></div>
+<div id="container" class="calendar-container" data-tippy-content="content tip">
+
+</div>
+
+    <div id="event-cal-container" class="calendar-container">
+      <button type="button" class="btn btn-sm btn-outline-primary" align="right">Add Event</button>
+    </div>
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -28,6 +33,7 @@
 <script src="{% static 'events/js/jquery.simple-calendar.min.js' %}"></script>
 <script>
   $(document).ready(function () {
+
     $("#container").simpleCalendar({
       fixedStartDay: false,
       disableEmptyDetails: true,
