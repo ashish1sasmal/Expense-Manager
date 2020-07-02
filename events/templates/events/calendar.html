@@ -12,17 +12,58 @@
   <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="{% static 'events/css/simple-calendar.css' %}">
   <link rel="stylesheet" href="{% static 'events/css/demo.css' %}">
+
+
+
+
 </head>
 <body>
 <br><br>
 
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add Events</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form  method="POST">
+      <div class="modal-body">
+
+          {% csrf_token %}
+          <div class="row">
+            <div class="form-group col-6">
+              <label for="date">Date</label>
+              <input type="date" name="date1" value="" placeholder="Enter Date">
+              <small id="dateHelp" class="form-text text-muted">You Are Awesome!</small>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+          <label for="exampleFormControlTextarea1">Summary</label>
+          <textarea class="form-control" name="summary" autocomplete="off" id="exampleFormControlTextarea1" rows="2" placeholder="Enter about event."></textarea>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save Event</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <div id="container" class="calendar-container" data-tippy-content="content tip">
 
 </div>
 
     <div id="event-cal-container" class="calendar-container">
-      <button type="button" class="btn btn-sm btn-outline-primary" align="right">Add Event</button>
+      <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter">Add Event</button>
     </div>
 
 
@@ -30,7 +71,12 @@
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
 
+
+
 <script src="{% static 'events/js/jquery.simple-calendar.min.js' %}"></script>
+
+
+
 <script>
   $(document).ready(function () {
 

@@ -1,10 +1,9 @@
 from django.db import models
-import datetime
+from datetime import datetime
 # Create your models here.
 
 class Events(models.Model):
-    date = models.DateField( default=datetime.date.today )
-    time = models.TimeField(auto_now_add=True)
+    event_on = models.DateTimeField( default=datetime.now )
     summary = models.CharField(max_length=50)
 
     def __str__(self):
