@@ -10,6 +10,49 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login,logout
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.sessions.models import Session
+from django.contrib.auth.models import User
+
+import datetime
+
+from django.conf import settings
+from django.contrib.auth import logout
+from django.contrib.auth.models import User
+from django.contrib.sessions.models import Session
+from django.http import HttpRequest
+from importlib import import_module
+
+
+def init_session(session_key):
+    """
+    Initialize same session as done for ``SessionMiddleware``.
+    """
+    engine = import_module(settings.SESSION_ENGINE)
+    return engine.SessionStore(session_key)
+
+def main():
+    """
+    Read all available users and all available not expired sessions. Then
+    logout from each session.
+    """
+    now = datetime.datetime.now()
+    request = HttpRequest()
+
+    sessions = Session.objects.filter(expire_date__gt=now)
+    print('1')
+    users = dict(User.objects.values_list('id', 'username'))
+    print(users)
+    print('Found %d not-expired session(s).' % len(sessions))
+
+    for session in sessions:
+        username = session.get_decoded().get('_auth_user_id')
+        request.session = init_session(session.session_key)
+
+        logout(request)
+        print('    Successfully logout %r user.' % username)
+
+    print('All OK!')
+
 @login_required
 def user_logout(request):
     logout(request)
@@ -28,6 +71,7 @@ class Userlogin( View):
         print(password)
         user=authenticate(username="ashishsasmal1",password=password)
         if user:
+            main()
             login(request,user)
             messages.success(request,"You have been logged in!")
             print("logged in")
@@ -62,6 +106,7 @@ class Moneydetail(LoginRequiredMixin, View):
 
 class Addmoney(LoginRequiredMixin, View):
     def get(self,request,*args,**kwargs):
+
         last = Totalmoney.objects.last()
         context = {'reason':'','last':last}
 
