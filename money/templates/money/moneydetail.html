@@ -1,10 +1,20 @@
 {% extends 'money/base.html' %}
 
 {% block content%}
+
+
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js" charset="utf-8"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js" charset="utf-8"></script>
+
+<script type="text/javascript">
+  $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+</script>
 <br><br><br><hr>
 
-<div class="container mr-3">
-  <table class="table  table-bordered">
+<div class="container">
+  <table id="myTable" class="table  table-bordered">
     <thead class="thead-dark">
       <tr>
         <th scope="col">#</th>
@@ -31,5 +41,8 @@
     </tbody>
   </table>
 </div>
+
+
+
 
 {% endblock content %}
