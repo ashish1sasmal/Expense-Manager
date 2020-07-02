@@ -13,36 +13,66 @@
 </script>
 <br><br><br><hr>
 
+<form  method="POST" id="detform">
+  {% csrf_token %}
+
+  <input type="text" name="paid" id="paid" value="" hidden>
+</form>
+
+
 <div class="container">
-  <table id="myTable" class="table  table-bordered">
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">To</th>
-        <th scope="col">Reason</th>
-        <th scope="col">Date</th>
-        <th scope="col">Returned?</th>
-        <th scope="col">Amount</th>
+
+    <table id="myTable" class="table  table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">To</th>
+          <th scope="col">Reason</th>
+          <th scope="col">Date</th>
+          <th scope="col">Returned?</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Action</th>
 
 
-      </tr>
-    </thead>
-    <tbody>
-      {% for i in all %}
-      <tr>
-        <th scope="row">{{forloop.counter}}</th>
-        <td>{{i.to}}</td>
-        <td>{{i.reason}}</td>
-        <td>{{i.date}}</td>
-        <td>{{i.returned}}</td>
-        <td>{{i.amount}}</td>
-      </tr>
-     {% endfor %}
-    </tbody>
-  </table>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in all %}
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{i.to}}</td>
+          <td>{{i.reason}}</td>
+          <td>{{i.date}}</td>
+          <td>{{i.returned}}</td>
+          <td>{{i.amount}}</td>
+          {% if i.returned %}
+          <td><button type="button" class="btn btn-sm btn-success">Clear</button></td>
+
+          {% else %}
+          <td><button type="button" onclick="paid({{i.id}});" class="btn btn-sm btn-warning">Paid</button></td>
+          {% endif %}
+        </tr>
+       {% endfor %}
+      </tbody>
+    </table>
+
+
 </div>
 
-
+<script type="text/javascript">
+  function paid(val)
+  {
+    if (confirm('Are you sure you want to Submit?'))
+    {
+      document.getElementById('paid').value = val;
+      document.getElementById('detform').submit();
+    }
+    else
+    {
+      return false;
+    }
+  }
+</script>
 
 
 {% endblock content %}

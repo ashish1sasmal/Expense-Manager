@@ -20,26 +20,21 @@ class Moneydetail(LoginRequiredMixin, View):
         return render(request,'money/moneydetail.html',context)
 
     def post(self,request,*args,**kwargs):
-        to = request.POST.get("to")
-        reason = request.POST.get("reason")
-        amt = request.POST.get("amount")
-        date = request.POST.get("date")
-        print(to,reason,amt,date)
-
-        m = AddMoney(to=to,reason=reason,amount=float(amt),date=date,returned=False)
-
+        am = AddMoney.objects.get(id=request.POST.get('paid'))
+        am.returned = True
+        am.save()
 
         last = Totalmoney.objects.last()
         print(last.total)
-        last.total = last.total + decimal.Decimal(float(amt))
+        last.total = last.total + decimal.Decimal(float(am.amount))
         last.updated_on = datetime.now()
 
-        # last.save()
+        last.save()
         # m.save()
 
-        messages.success(request,'Balance Updated Successfully. Amount = '+str(amt))
+        messages.success(request,'Amount added successfully! . Amount = '+str(am.amount))
+        return redirect('moneydetail')
 
-        return redirect('addmoney')
 
 class Addmoney(LoginRequiredMixin, View):
     def get(self,request,*args,**kwargs):
@@ -58,16 +53,19 @@ class Addmoney(LoginRequiredMixin, View):
         if request.POST.get("checkme"):
             ret = True
 
+
         m = AddMoney(to=to,reason=reason,amount=amt,date=date,returned=ret)
         m.save()
         last = Totalmoney.objects.last()
         print(last.total,decimal.Decimal(float(amt)))
+        if ret == False:
+            amt=-1*float(amt)
         last.total = last.total + decimal.Decimal(float(amt))
         last.updated_on = datetime.now()
 
         last.save()
 
 
-        messages.success(request,'Balance Updated Successfully. Amount = '+str(amt))
+        messages.success(request,'Balance Updated Successfully. Amount = '+str(abs(float(amt))))
 
         return redirect('addmoney')
