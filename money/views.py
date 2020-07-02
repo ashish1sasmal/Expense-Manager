@@ -11,6 +11,22 @@ import decimal
 def home(request):
     return render(request,'money/home.html')
 
+class Userlogin( View):
+    def get(self,request,*args,**kwargs):
+        return render(request,"money/login.html")
+
+    def post(self,request,*args,**kwargs):
+        password = request.POST.get('password')
+        print(password)
+        user=authenticate(username="ashishsasmal1",password=password)
+        if user:
+            login(request,user)
+            messages.success(request,"You have been logged in!")
+            print("logged in")
+            return redirect('home')
+        else:
+            messages.warning(request,'Wrong input!')
+        return render(request,"money/login.html")
 
 class Moneydetail(LoginRequiredMixin, View):
     def get(self,request,*args,**kwargs):
@@ -58,7 +74,7 @@ class Addmoney(LoginRequiredMixin, View):
         print(last.total,decimal.Decimal(float(amt)))
         if status in ["OS","PS"]:
             amt=-1*float(amt)
-            
+
         last.total = last.total + decimal.Decimal(float(amt))
         last.updated_on = datetime.now()
 
