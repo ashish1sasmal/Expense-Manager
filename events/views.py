@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
 from django.contrib import messages
 from .models import *
+from datetime import datetime
 
 # Create your views here.
 
@@ -12,16 +13,14 @@ class Events(LoginRequiredMixin,View):
 
 
     def post(self,request,*args,**kwargs):
-        d = request.POST.get("date1")
-        t = request.POST.get("time1")
-        s = request.POST.get("summary")
-        print(d,t,s)
-        if t=="":
-            m = Events(date=d,summary=s)
+        d = request.POST.get("date1")+" 00:00:00"
+        print(d)
+        d = datetime.strptime(datetime.strptime(d, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S')
 
-        else:
-            m = Events(date=d,time=t,summary=s)
-            
+        s = request.POST.get("summary")
+        print(d,s)
+        m = Event(date=d,summary=s)
+        m.save()
 
         messages.success(request,'Event Added Successfully! Dated:'+str(d))
         return redirect('calendar')
