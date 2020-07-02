@@ -19,7 +19,7 @@
   <input type="text" name="paid" id="paid" value="" hidden>
 </form>
 
-<p style="color:green;font-family: 'Source Serif Pro', serif;" align="right"><b>Total : &#8377;{{last.total}}</b></p>
+<h5 style="color:green;font-family: 'Source Serif Pro', serif;" align="center"><b>Total : &#8377;{{last.total}}</b></h5>
 <div class="container">
 
     <table id="myTable" class="table  table-bordered">
@@ -29,7 +29,6 @@
           <th scope="col">To</th>
           <th scope="col">Reason</th>
           <th scope="col">Date</th>
-          <th scope="col">Returned?</th>
           <th scope="col">Amount</th>
           <th scope="col">Action</th>
 
@@ -43,13 +42,16 @@
           <td>{{i.to}}</td>
           <td>{{i.reason}}</td>
           <td>{{i.date}}</td>
-          <td>{{i.returned}}</td>
           <td>{{i.amount}}</td>
-          {% if i.returned %}
-          <td><button type="button" class="btn btn-sm btn-success">Clear</button></td>
+          {% if i.status == "OS" %}
+           <td><button type="button" onclick="paid({{i.id}});" class="btn btn-sm btn-danger">{{i.get_status_display}}</button></td>
+           {% elif i.status == "OA" %}
+           <td><button type="button"  class="btn btn-sm btn-primary">{{i.get_status_display}}</button></td>
 
+           {% elif i.status == "RET" %}
+           <td><button type="button"  class="btn btn-sm btn-warning">{{i.get_status_display}}</button></td>
           {% else %}
-          <td><button type="button" onclick="paid({{i.id}});" class="btn btn-sm btn-warning">Paid</button></td>
+          <td><button type="button" class="btn btn-sm btn-success">{{i.get_status_display}}</button></td>
           {% endif %}
         </tr>
        {% endfor %}

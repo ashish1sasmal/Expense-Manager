@@ -21,7 +21,7 @@ class Moneydetail(LoginRequiredMixin, View):
 
     def post(self,request,*args,**kwargs):
         am = AddMoney.objects.get(id=request.POST.get('paid'))
-        am.returned = True
+        am.status = "RET"
         am.save()
 
         last = Totalmoney.objects.last()
@@ -48,18 +48,17 @@ class Addmoney(LoginRequiredMixin, View):
         reason = request.POST.get("reason")
         amt = decimal.Decimal(request.POST.get("amount"))
         date = request.POST.get("date")
+        status = request.POST.get("status")
         print(amt,reason,amt,date)
-        ret = False
-        if request.POST.get("checkme"):
-            ret = True
 
-
-        m = AddMoney(to=to,reason=reason,amount=amt,date=date,returned=ret)
+        m = AddMoney(to=to,reason=reason,amount=amt,date=date,status=status)
         m.save()
+
         last = Totalmoney.objects.last()
         print(last.total,decimal.Decimal(float(amt)))
-        if ret == False:
+        if status in ["OS","PS"]:
             amt=-1*float(amt)
+            
         last.total = last.total + decimal.Decimal(float(amt))
         last.updated_on = datetime.now()
 

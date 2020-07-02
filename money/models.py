@@ -2,12 +2,14 @@ from django.db import models
 from datetime import date,datetime
 # Create your models here.
 
+addchoices = (('OA','Added'),('OS','Given'),('PS','Personal'),('RET','Returned'))
+
 class AddMoney(models.Model):
     to = models.CharField(max_length=30,blank=False,null=False)
     date = models.DateField(default=date.today)
     amount = models.DecimalField(max_digits=10,decimal_places=2)
     reason = models.CharField(max_length=100)
-    returned = models.BooleanField(default=False)
+    status = models.CharField(max_length=3,choices=addchoices,default="PS")
 
     def __str__(self):
         return f"{self.to}_{self.date}_{self.amount}"
