@@ -9,7 +9,8 @@ from datetime import datetime
 
 class Events(LoginRequiredMixin,View):
     def get(self,request,*args,**kwargs):
-        return render(request,'events/calendar.html')
+        all = Event.objects.all()
+        return render(request,'events/calendar.html',{'all':all})
 
 
     def post(self,request,*args,**kwargs):
@@ -22,5 +23,5 @@ class Events(LoginRequiredMixin,View):
         m = Event(date=d,summary=s)
         m.save()
 
-        messages.success(request,'Event Added Successfully! Dated:'+str(d))
+        messages.success(request,'Event Added Successfully! Dated:'+str(d).replace('00:00:00',''))
         return redirect('calendar')

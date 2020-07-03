@@ -13,9 +13,6 @@
   <link rel="stylesheet" href="{% static 'events/css/simple-calendar.css' %}">
   <link rel="stylesheet" href="{% static 'events/css/demo.css' %}">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.js"></script>
-
 
 </head>
 <body>
@@ -80,30 +77,18 @@
 
 <script>
   $(document).ready(function () {
+    var l=[];
+    {% for i in all %}
+    var e ="{{i.date|date:'Y-m-d'}}T{{i.date|date:'H:i:s'}}.000Z";
+    e = new Date(e);
+    l.push({startDate: e,endDate: e,summary: '{{i.summary}}'});
+    {% endfor %}
 
+    console.log(l);
     $("#container").simpleCalendar({
       fixedStartDay: false,
       disableEmptyDetails: true,
-      events: [
-        // generate new event after tomorrow for one hour
-        {
-          startDate: new Date(new Date().setHours(new Date().getHours() + 24)).toDateString(),
-          endDate: new Date(new Date().setHours(new Date().getHours() + 25)).toISOString(),
-          summary: 'Visit of the Eiffel Tower'
-        },
-        // generate new event for yesterday at noon
-        {
-          startDate: new Date(new Date().setHours(new Date().getHours() - new Date().getHours() - 12, 0)).toISOString(),
-          endDate: new Date(new Date().setHours(new Date().getHours() - new Date().getHours() - 11)).getTime(),
-          summary: 'Restaurant'
-        },
-        // generate new event for the last two days
-        {
-          startDate: new Date(new Date().setHours(new Date().getHours() - 48)).toISOString(),
-          endDate: new Date(new Date().setHours(new Date().getHours() - 24)).getTime(),
-          summary: 'Visit of the Louvre'
-        }
-      ],
+      events: l,
 
     });
   });
