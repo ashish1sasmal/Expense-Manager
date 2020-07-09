@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'money',
     'events',
+    'diary',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
