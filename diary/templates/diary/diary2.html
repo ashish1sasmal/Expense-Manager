@@ -148,7 +148,7 @@
                           <form method="POST" id="form{{i.id}}">
                             {% csrf_token %}
                             <input type="text" name="en" value="{{i.id}}" hidden>
-                            <textarea class="form-control" name="edit{{i.id}}" id="message{{i.id}}" rows="2" placeholder="What are you thinking?"></textarea>
+                            <textarea class="form-control" name="edit{{i.id}}" id="message{{i.id}}" rows="4" placeholder="What are you thinking?"></textarea>
 
                             <a href="#" onclick="document.getElementById('form'+{{i.id}}).submit();" style="font-size:20px;"><i class="fas fa-arrow-right"></i></a>
                           </form>
