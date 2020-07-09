@@ -169,11 +169,21 @@
         <script type="text/javascript">
           function Edit(val)
           {
-            v = document.getElementById("p"+val).innerHTML;
 
-            document.getElementById("note"+val).style.display = "none";
-            document.getElementById("message"+val).value = v;
-            document.getElementById("edit"+val).style.display = "block";
+            if (document.getElementById("note"+val).style.display == "block")
+            {
+              document.getElementById("note"+val).style.display = "none";
+              v = document.getElementById("p"+val).innerHTML;
+              document.getElementById("message"+val).value = v;
+              document.getElementById("edit"+val).style.display = "block";
+            }
+            else {
+              document.getElementById("note"+val).style.display = "block";
+              v = document.getElementById("p"+val).innerHTML;
+              document.getElementById("message"+val).value = v;
+              document.getElementById("edit"+val).style.display = "none";
+            }
+
 
           }
         </script>
