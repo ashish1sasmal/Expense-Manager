@@ -106,11 +106,13 @@ AUTH_PASSWORD_VALIDATORS = [
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',
-        'width': '125%',
+        'width': '120%',
         'height': 220,
         'toolbar_Custom': [
             ['Bold', 'Italic', 'Underline'],
             ['NumberedList', 'BulletedList'],
+            ['Smiley', 'SpecialChar'],
+            ['TextColor', 'BGColor'],
 
         ],
     }

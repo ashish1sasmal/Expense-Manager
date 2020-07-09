@@ -4,14 +4,41 @@
 {% load static %}
 {% block content%}
 
+<link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+
+
 <br><br><br><br>
-<div class="container" width="20%">
-  <form class="" action="index.html" method="post">
-      {{ form.text | safe}}
-      {{ form.media }}
-  </form>
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="" action="index.html" method="post">
+            {{ form.text | safe}}
+            {{ form.media }}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <a href="#" data-toggle="modal" data-target="#exampleModal" style="font-family: 'Shadows Into Light', cursive;font-size:15pt;color:#097d52;"><b><u> Write</u> <i class="fas fa-feather"></i> </b></a>
+
+  
 
 </div>
+
 
 
 {% endblock content %}
