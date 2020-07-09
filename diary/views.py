@@ -8,5 +8,6 @@ from .forms import *
 class Diary(LoginRequiredMixin,View):
     def get(self,request,*args,**kwargs):
         form = DiaryNote()
-        context = {"form":form}
-        return render(request,"diary/diary.html",context)
+        notes = Diarynote.objects.all().order_by("-updated_on")
+        context = {"form":form,'notes':notes}
+        return render(request,"diary/diary2.html",context)

@@ -1,0 +1,204 @@
+
+{% extends 'money/base.html' %}
+
+{% load static %}
+{% block content%}
+
+<link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+
+
+<style media="screen">
+  body {
+            background-color: #eeeeee;
+        }
+
+        .h7 {
+            font-size: 0.8rem;
+        }
+
+        .gedf-wrapper {
+            margin-top: 0.97rem;
+        }
+
+        @media (min-width: 992px) {
+            .gedf-main {
+                padding-left: 4rem;
+                padding-right: 4rem;
+            }
+            .gedf-card {
+                margin-bottom: 2.77rem;
+            }
+        }
+
+        /**Reset Bootstrap*/
+        .dropdown-toggle::after {
+            content: none;
+            display: none;
+        }
+</style>
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+
+<br><br><hr>
+<div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form class=""  method="POST">
+        {% csrf_token %}
+      <div class="modal-body">
+        <div class="col mb-2">
+          <input type="text" class="form-control" placeholder="Subject..">
+        </div>
+
+        <div class="col-12">
+          {{ form.text | safe}}
+          {{ form.media }}
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar navbar-light bg-white">
+        <a href="#" data-toggle="modal" data-target="#exampleModal" style="font-family: 'Shadows Into Light', cursive;font-size:15pt;color:#097d52;"><b><u> Write</u> <i class="fas fa-feather"></i> </b></a>
+        <form class="form-inline">
+            <div class="input-group">
+                <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="button" id="button-addon2">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </nav>
+
+
+    <div class="container-fluid gedf-wrapper">
+        <div class="row">
+
+            <div class="col-md-6 gedf-main">
+
+                <!--- \\\\\\\Post-->
+                <!-- <div class="card gedf-card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Make
+                                    a publication</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">Images</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                                <div class="form-group">
+                                    <label class="sr-only" for="message">post</label>
+                                    <textarea class="form-control" id="message" rows="3" placeholder="What are you thinking?"></textarea>
+                                </div>
+
+                            </div>
+                            <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+                                <div class="form-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Upload image</label>
+                                    </div>
+                                </div>
+                                <div class="py-4"></div>
+                            </div>
+                        </div>
+                        <div class="btn-toolbar justify-content-between">
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-primary">share</button>
+                            </div>
+                            <div class="btn-group">
+                                <button id="btnGroupDrop1" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i class="fa fa-globe"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+                                    <a class="dropdown-item" href="#"><i class="fa fa-globe"></i> Public</a>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-users"></i> Friends</a>
+                                    <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Just me</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- Post /////-->
+
+                <!--- \\\\\\\Post-->
+                {% for i in notes %}
+                <div class="card gedf-card">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="mr-2">
+                                    <img class="rounded-circle" width="30" src="https://picsum.photos/50/50" alt="">
+                                </div>
+                                <div class="ml-2">
+                                    <div class="h6 m-0">{{i.sub}}</div>
+                                    <div class="h7 text-muted">{{i.created_on}}</div>
+                                </div>
+                            </div>
+                            <div>
+                                <a href="#"><i class="far fa-edit"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                           {{i.text|safe}}
+                        </p>
+                    </div>
+                    <!-- <div class="card-footer">
+                        <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+                        <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
+                        <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
+                    </div> -->
+                </div>
+                {% endfor %}
+                <!-- Post /////-->
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock content %}
