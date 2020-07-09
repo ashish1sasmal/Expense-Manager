@@ -70,13 +70,14 @@
   </header><!-- End Header -->
 
 {% if messages %}
-{% for message in messages %}
 <br><br>
+{% for message in messages %}
+
 <div class="alert alert-{{message.tags}} mt-2">{{message}}</div>
 {% endfor %}
 
 {% endif %}
-
+<br><br>
 {% block content %}{% endblock %}
   <!-- Vendor JS Files -->
 
