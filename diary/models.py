@@ -6,7 +6,7 @@ import datetime
 
 class Diarynote(models.Model):
     sub = models.CharField(max_length=50)
-    text = RichTextField(null=True,blank=True)
+    text = models.TextField(max_length=5000,null=True,blank=True)
     created_on = models.DateTimeField( default=datetime.datetime.now )
     updated_on = models.DateTimeField( default=datetime.datetime.now )
 
