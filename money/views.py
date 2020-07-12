@@ -128,7 +128,7 @@ class Addmoney(LoginRequiredMixin, View):
             amt=-1*float(amt)
 
         last.total = last.total + decimal.Decimal(float(amt))
-        last.updated_on = datetime.now()
+        last.updated_on = datetime.datetime.now()
 
         last.save()
 
