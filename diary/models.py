@@ -3,6 +3,14 @@ from django.db import models
 # Create your models here.
 from ckeditor.fields import RichTextField
 import datetime
+from django.contrib.auth.models import User
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    password = models.CharField(max_length=20)
+
+    def __str__(self):
+    	return f'{self.user.username} Profile'
 
 class Diarynote(models.Model):
     # sub = models.CharField(max_length=50)

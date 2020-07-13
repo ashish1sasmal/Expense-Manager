@@ -32,6 +32,7 @@
   <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
   <script src="{% static 'money/js/jquery.min.js' %}"></script>
 
+
 </head>
 
 <body>
@@ -60,7 +61,7 @@
            <li><a href="{% url 'calendar' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Events</a></li>
 
 
-          <li><a href="{% url 'diary' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Diary</a></li>
+          <li><a href="{% url 'diary_login' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Diary</a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'logout' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Logout</a></li>
           {% else %}
