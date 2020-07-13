@@ -45,6 +45,9 @@ class Diary_login(LoginRequiredMixin,View):
         return render(request,"diary/diary.html")
 
     def post(self,request,*args,**kwargs):
+        print(request.POST.get("passme"))
         if request.POST.get("passme") == request.user.profile.password:
             request.session['d_log'] = True
             return HttpResponseRedirect(reverse('diary'))
+        else:
+            return redirect('diary_login')
