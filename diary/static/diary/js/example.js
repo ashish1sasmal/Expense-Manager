@@ -389,11 +389,11 @@
 				u = e.themeStates;
 			return function (e, c) {
 				return (0, r.h)("div", {}, [(0, r.h)("div", {
-					class: "title"
-				}, "PatternLockJS"), (0, r.h)("div", {
-					class: "subtitle"
-				}, "Draw unlock pattern to generate a hash"), (0, r.h)("div", {
-					class: "canvas-wrapper"
+					class: "subtitle",
+					align: "center"
+				}, "Draw unlock pattern"), (0, r.h)("div", {
+					class: "canvas-wrapper",
+					align: "center"
 				}, (0, r.h)(a.default, {
 					width: e.width,
 					height: e.height,
