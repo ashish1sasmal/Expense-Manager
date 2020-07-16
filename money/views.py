@@ -94,7 +94,7 @@ class Moneydetail(LoginRequiredMixin, View):
         last = Totalmoney.objects.last()
         print(last.total)
         last.total = last.total + decimal.Decimal(float(am.amount))
-        last.updated_on = datetime.now()
+        last.updated_on = datetime.datetime.now()
 
         last.save()
         # m.save()
