@@ -1,3 +1,10 @@
+# @Author: ASHISH SASMAL <ashish>
+# @Date:   03-09-2020
+# @Last modified by:   ashish
+# @Last modified time: 02-11-2020
+
+
+
 from django.shortcuts import render, redirect, reverse
 from .models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -88,12 +95,17 @@ class Moneydetail(LoginRequiredMixin, View):
 
     def post(self,request,*args,**kwargs):
         am = AddMoney.objects.get(id=request.POST.get('paid'))
-        am.status = "RET"
+        if request.POST.get('tobank')=="1":
+            am.status = "RETB"
+        else:
+            am.status = "RET"
         am.save()
+        print(request.POST)
 
         last = Totalmoney.objects.last()
         print(last.total)
-        last.total = last.total + decimal.Decimal(float(am.amount))
+        if request.POST.get('tobank')!="1":
+            last.total = last.total + decimal.Decimal(float(am.amount))
         last.updated_on = datetime.datetime.now()
 
         last.save()

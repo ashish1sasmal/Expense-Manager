@@ -1,3 +1,12 @@
+<!--
+@Author: ASHISH SASMAL <ashish>
+@Date:   03-09-2020
+@Last modified by:   ashish
+@Last modified time: 02-11-2020
+-->
+
+
+
 {% extends 'money/base.html' %}
 
 {% block content%}
@@ -17,6 +26,7 @@
   {% csrf_token %}
 
   <input type="text" name="paid" id="paid" value="" hidden>
+  <input type="number" name="tobank" id="tobank" value="0" hidden>
 </form>
 
 <h5 style="color:green;font-family: 'Source Serif Pro', serif;" align="center"><b>Total : &#8377;{{last.total}}</b></h5>
@@ -50,6 +60,8 @@
 
            {% elif i.status == "RET" %}
            <td><button type="button"  class="btn btn-sm btn-warning">{{i.get_status_display}}</button></td>
+           {% elif i.status == "RETB" %}
+           <td><button type="button"  class="btn btn-sm" style="background-color:#16b5a7;color:#ffffff;">{{i.get_status_display}}</button></td>
           {% else %}
           <td><button type="button" class="btn btn-sm btn-success">{{i.get_status_display}}</button></td>
           {% endif %}
@@ -64,15 +76,35 @@
 <script type="text/javascript">
   function paid(val)
   {
-    if (confirm('Are you sure you want to Submit?'))
+    if (confirm('Do you want bank transfer?'))
     {
       document.getElementById('paid').value = val;
-      document.getElementById('detform').submit();
+      document.getElementById('tobank').value = 1;
+      if (confirm('Are you sure you want to Submit?'))
+      {
+        document.getElementById('detform').submit();
+      }
+      else
+      {
+        document.getElementById('tobank').value = 0;
+        document.getElementById('paid').value = "";
+        return false;
+      }
     }
-    else
-    {
-      return false;
+    else {
+      document.getElementById('paid').value = val;
+      if (confirm('Are you sure you want to Submit?'))
+      {
+        document.getElementById('detform').submit();
+      }
+      else
+      {
+        document.getElementById('paid').value = "";
+        return false;
+      }
     }
+
+
   }
 </script>
 

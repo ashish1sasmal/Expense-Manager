@@ -1,3 +1,10 @@
+# @Author: ASHISH SASMAL <ashish>
+# @Date:   03-09-2020
+# @Last modified by:   ashish
+# @Last modified time: 02-11-2020
+
+
+
 """
 Django settings for MyExpense project.
 
@@ -28,6 +35,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # During development only
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,7 +49,6 @@ INSTALLED_APPS = [
     'money',
     'events',
     'diary',
-    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -103,22 +111,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'Custom',
-        'width': '120%',
-        'height': 220,
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList'],
-            ['Smiley', 'SpecialChar'],
-            ['TextColor', 'BGColor'],
-
-        ],
-    }
-}
-
-# Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'

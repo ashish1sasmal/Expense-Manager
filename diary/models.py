@@ -1,7 +1,13 @@
+# @Author: ASHISH SASMAL <ashish>
+# @Date:   03-09-2020
+# @Last modified by:   ashish
+# @Last modified time: 02-11-2020
+
+
+
 from django.db import models
 
 # Create your models here.
-from ckeditor.fields import RichTextField
 import datetime
 from django.contrib.auth.models import User
 
