@@ -27,6 +27,7 @@ from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.http import HttpRequest
 from importlib import import_module
+from django.conf import settings
 
 
 def init_session(session_key):
@@ -68,16 +69,17 @@ def user_logout(request):
 def home(request):
     return render(request,'money/home.html')
 
-class Userlogin( View):
+class Userlogin(View):
     def get(self,request,*args,**kwargs):
         return render(request,"money/login.html")
 
     def post(self,request,*args,**kwargs):
         password = request.POST.get('password')
         print(password)
-        user=authenticate(username="ashishsasmal1",password=password)
+        user=authenticate(username="ashish01",password=password)
         if user:
-            main()
+            # main()
+            request.session.set_expiry(settings.AUTO_LOGOUT_DELAY*60)
             login(request,user)
             messages.success(request,"You have been logged in!")
             print("logged in")

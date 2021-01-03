@@ -59,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # 'diary.middleware.AutoLogout',
 ]
 
 ROOT_URLCONF = 'MyExpense.urls'
@@ -78,6 +80,8 @@ TEMPLATES = [
         },
     },
 ]
+
+# SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 WSGI_APPLICATION = 'MyExpense.wsgi.application'
 
@@ -132,5 +136,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 LOGIN_URL='login'
 LOGIN_REDIRECT_URL='home'
+AUTO_LOGOUT_DELAY = 60
 
 django_heroku.settings(locals())

@@ -12,14 +12,12 @@ from django.contrib.auth.models import User
 
 class Diary(LoginRequiredMixin,View):
     def get(self,request,*args,**kwargs):
-         if 'd_log' in request.session:
+        print(request.session.get_expiry_date())
+        # request.session.set_expiry(20)
+        notes = Diarynote.objects.all().order_by("-updated_on")
+        context = {'notes':notes}
+        return render(request,"diary/diary2.html",context)
 
-            del request.session['d_log']
-            notes = Diarynote.objects.all().order_by("-updated_on")
-            context = {'notes':notes}
-            return render(request,"diary/diary2.html",context)
-         else:
-            return redirect('diary_login')
 
 
     def post(self,request,*args,**kwargs):
@@ -47,7 +45,7 @@ class Diary_login(LoginRequiredMixin,View):
     def post(self,request,*args,**kwargs):
         print(request.POST.get("passme"))
         if request.POST.get("passme") == request.user.profile.password:
-            request.session['d_log'] = True
+            request.session.set_expiry(120)
             return HttpResponseRedirect(reverse('diary'))
         else:
             return redirect('diary_login')

@@ -1,1 +1,1 @@
-web: gunicorn MyExpense.wsgi
+daphne djangoChat.asgi:application
