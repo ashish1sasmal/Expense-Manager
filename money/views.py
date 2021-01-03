@@ -76,7 +76,7 @@ class Userlogin(View):
     def post(self,request,*args,**kwargs):
         password = request.POST.get('password')
         print(password)
-        user=authenticate(username="ashish01",password=password)
+        user=authenticate(username="ashishsasmal01",password=password)
         if user:
             # main()
             request.session.set_expiry(settings.AUTO_LOGOUT_DELAY*60)
