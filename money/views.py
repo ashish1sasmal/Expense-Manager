@@ -65,6 +65,22 @@ def user_logout(request):
     logout(request)
     return redirect('home')
 
+class Notes(View):
+    def get(self,request,*args,**kwargs):
+        notes = NotesEntry.objects.all().order_by('-updated_on')
+        return render(request,"money/notes.html",{"notes":notes})
+
+    def post(self,request,*args,**kwargs):
+        try:
+            note = request.POST.get("notes")
+            print(note)
+            nt = NotesEntry(text=note)
+            nt.save()
+            messages.success(request,"Note has been added!")
+        except:
+            messages.warning(request,'Some error occured!')
+        return redirect('notes')
+
 # Create your views here.
 def home(request):
     return render(request,'money/home.html')

@@ -57,7 +57,7 @@
               <a class="dropdown-item" href="{% url 'moneydetail' %}" style="font-family: 'Pangolin', cursive;font-size:15pt;">Account Details</a>
             </div>
           </li>
-
+          <li><a href="{% url 'notes' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Notes</a></li>
            <li><a href="{% url 'calendar' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Events</a></li>
 
 
@@ -82,7 +82,10 @@
 
 {% endif %}
 <br><br>
+<div class="container">
 {% block content %}{% endblock %}
+</div>
+
   <!-- Vendor JS Files -->
 
 
