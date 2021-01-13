@@ -78,7 +78,7 @@ def email():
 
 class GetData(View,SerializeMixin):
     def get(self,request,*args,**kwargs):
-        serialized_obj = self.serialize(NotesEntry.objects.all())
+        serialized_obj = self.serialize(AddMoney.objects.all())
         json_object = json.dumps(serialized_obj, indent = 4)
         # Writing to sample.json
         print(json_object)
