@@ -25,9 +25,67 @@ import datetime
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from importlib import import_module
 from django.conf import settings
+
+from django.core import serializers
+import json
+from .mixins import *
+
+import email, smtplib, ssl
+
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import os
+
+def email():
+    subject = "Weekly Data"
+    body = f'Date & Time : {datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")}'
+    sender_email = os.environ.get('EMAIL_ID')
+    receiver_email = os.environ.get('EMAIL_ID')
+    password = os.environ.get('EMAIL_PASS')
+
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = receiver_email
+    message["Subject"] = subject
+    message.attach(MIMEText(body, "plain"))
+
+    filename = "sample.json"  # In same directory as script
+    with open(filename, "rb") as attachment:
+        # Add file as application/octet-stream
+        # Email client can usually download this automatically as attachment
+        part = MIMEBase("application", "octet-stream")
+        part.set_payload(attachment.read())
+    encoders.encode_base64(part)
+    part.add_header(
+        "Content-Disposition",
+        f"attachment; filename= {filename}",
+    )
+    message.attach(part)
+    text = message.as_string()
+    # Log in to server using secure context and send email
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, text)
+
+    print("Email Sent")
+
+
+class GetData(View,SerializeMixin):
+    def get(self,request,*args,**kwargs):
+        serialized_obj = self.serialize(NotesEntry.objects.all())
+        json_object = json.dumps(serialized_obj, indent = 4)
+        # Writing to sample.json
+        print(json_object)
+        with open("sample.json", "w") as outfile:
+            outfile.write(serialized_obj)
+        email()
+        return HttpResponse("Data Sent")
 
 
 def init_session(session_key):
