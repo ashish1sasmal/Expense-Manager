@@ -54,7 +54,7 @@
       <div class="card-body">
         <a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" aria-expanded="false" aria-controls="collapseExample" ><b >Note No. {{ forloop.counter }}</b></a><br>
         <small><u>{{i.updated_on}}</u></small>
-        <p class="card-text collapse mt-1" style="font-size:13px;" id="collapseExample{{ forloop.counter }}" aria-expanded="false">{{i.text}}</p>
+        <p class="card-text collapse mt-1" style="font-size:13px;" id="collapseExample{{ forloop.counter }}" aria-expanded="false">{{i.text |linebreaksbr  }}</p>
 
       </div>
     </div>
