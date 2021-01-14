@@ -53,13 +53,14 @@
     <div id="module" class="card mb-0">
       <div class="card-body">
         <a role="button" class="collapsed" data-toggle="collapse" href="#collapseExample{{ forloop.counter }}" aria-expanded="false" aria-controls="collapseExample" ><b >Note No. {{ forloop.counter }}</b></a><br>
-        <small><u>{{i.updated_on}}</u></small>
-        <p class="card-text collapse mt-1" style="font-size:13px;" id="collapseExample{{ forloop.counter }}" aria-expanded="false">{{i.text |linebreaksbr  }}</p>
+        <small><u>{{i.updated_on}}</u><button style="font-size:10px;padding:3px;" class="btn btn-sm btn-outline-info ml-3" onclick="copyToClipboard('#collapseExample{{ forloop.counter }}')">Copy</button></small>
+        <p class="card-text collapse mt-1" style="font-size:13px;" id="collapseExample{{ forloop.counter }}" aria-expanded="false">{{i.text|linebreaksbr|safe|escape}}</p>
 
       </div>
     </div>
     {% endfor %}
   </div>
+
 
 </div>
 
@@ -67,6 +68,14 @@
 
 
 <script type="text/javascript">
+  function copyToClipboard(element) {
+  var text = $(element).clone().find('br').prepend('\r\n').end().text()
+  element = $('<textarea>').appendTo('body').val(text).select()
+  document.execCommand('copy')
+  element.remove()
+  alert();
+}
+
   function writenote()
   {
     document.getElementById("noteF").style.display = "block";
