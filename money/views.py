@@ -149,7 +149,7 @@ class Userlogin(View):
 
     def post(self,request,*args,**kwargs):
         password = request.POST.get('password')
-        print(password)
+        # print(password)
         user=authenticate(username="ashishsasmal01",password=password)
         if user:
             # main()
@@ -157,7 +157,7 @@ class Userlogin(View):
             login(request,user)
             messages.success(request,"You have been logged in!")
             print("logged in")
-            return redirect('home')
+            return redirect(self.request.GET.get('next'))
         else:
             messages.warning(request,'Wrong input!')
         return render(request,"money/login.html")

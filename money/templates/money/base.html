@@ -65,7 +65,7 @@
           {% if user.is_authenticated %}
           <li><a href="{% url 'logout' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Logout</a></li>
           {% else %}
-          <li><a href="{% url 'login' %}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Login</a></li>
+          <li><a href="{% url 'login' %}?next={{request.path}}" style="font-family: 'Pangolin', cursive;font-size:17pt;">Login</a></li>
           {% endif %}
         </ul>
       </nav><!-- .nav-menu -->
