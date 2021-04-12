@@ -41,6 +41,35 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import os
 
+class Moneydetail(LoginRequiredMixin, View):
+    def get(self,request,*args,**kwargs):
+        last = Totalmoney.objects.last()
+        all = AddMoney.objects.all().order_by('-date')
+        context = {'all':all,'last':last}
+        return render(request,'money/moneydetail.html',context)
+
+    def post(self,request,*args,**kwargs):
+        am = AddMoney.objects.get(id=request.POST.get('paid'))
+        if request.POST.get('tobank')=="1":
+            am.status = "RETB"
+        else:
+            am.status = "RET"
+        am.save()
+        print(request.POST)
+
+        last = Totalmoney.objects.last()
+        print(last.total)
+        if request.POST.get('tobank')!="1":
+            last.total = last.total + decimal.Decimal(float(am.amount))
+        last.updated_on = datetime.datetime.now()
+
+        last.save()
+        # m.save()
+
+        messages.success(request,'Amount added successfully! . Amount = '+str(am.amount))
+        return redirect('moneydetail')
+
+
 def email():
     subject = "Weekly Data"
     body = f'Date & Time : {datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")}'
@@ -123,12 +152,13 @@ def user_logout(request):
     logout(request)
     return redirect('home')
 
-class Notes(View):
+class Notes(LoginRequiredMixin,View):
     def get(self,request,*args,**kwargs):
         notes = NotesEntry.objects.all().order_by('-updated_on')
         return render(request,"money/notes.html",{"notes":notes})
 
     def post(self,request,*args,**kwargs):
+        print(request.POST)
         try:
             note = request.POST.get("notes")
             print(note)
@@ -162,33 +192,6 @@ class Userlogin(View):
             messages.warning(request,'Wrong input!')
         return render(request,"money/login.html")
 
-class Moneydetail(LoginRequiredMixin, View):
-    def get(self,request,*args,**kwargs):
-        last = Totalmoney.objects.last()
-        all = AddMoney.objects.all().order_by('-date')
-        context = {'all':all,'last':last}
-        return render(request,'money/moneydetail.html',context)
-
-    def post(self,request,*args,**kwargs):
-        am = AddMoney.objects.get(id=request.POST.get('paid'))
-        if request.POST.get('tobank')=="1":
-            am.status = "RETB"
-        else:
-            am.status = "RET"
-        am.save()
-        print(request.POST)
-
-        last = Totalmoney.objects.last()
-        print(last.total)
-        if request.POST.get('tobank')!="1":
-            last.total = last.total + decimal.Decimal(float(am.amount))
-        last.updated_on = datetime.datetime.now()
-
-        last.save()
-        # m.save()
-
-        messages.success(request,'Amount added successfully! . Amount = '+str(am.amount))
-        return redirect('moneydetail')
 
 
 class Addmoney(LoginRequiredMixin, View):
